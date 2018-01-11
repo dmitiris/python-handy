@@ -3,7 +3,7 @@
 # standart modules
 from datetime import datetime
 
-# my modules
+# local modules
 from psycopg2 import connect
 
 
