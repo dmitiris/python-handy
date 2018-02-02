@@ -36,4 +36,7 @@ def main(args, arg_structure):
             options.pop(i)
         else:
             i += 1
+    if len(res) == 1:
+        return res[0]
     return res
+        
