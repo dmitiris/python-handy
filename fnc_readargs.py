@@ -22,12 +22,8 @@ def main(args, arg_structure):
     res = [arg_structure[i]["default"] for i in range(0,len(arg_structure))]
     keywords = {key:old_key for old_key in arg_structure for key in arg_structure[old_key]['names']}
     options = [word.split('=')[0] for word in args]
-    print 'options:', options
     i = 1
     while i < len(options):
-        # options = [word.split('=')[0] for word in args]
-        print 'keys', keywords
-        print 'options:', options
         if options[i] in keywords:
             num = keywords[options[i]]
             if arg_structure[num]['paired']:
