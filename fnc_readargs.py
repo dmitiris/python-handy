@@ -15,12 +15,12 @@ def to_type(tt, data):
         except ValueError:
             return data.split(',')
     elif tt in ['dict']:
-        return {item.split(':')[0]:item.split(':')[1] for item in data.split(',')}            
+        return {item.split(':')[0]: item.split(':')[1] for item in data.split(',')}
 
 
 def main(args, arg_structure):
-    res = [arg_structure[i]["default"] for i in range(0,len(arg_structure))]
-    keywords = {key:old_key for old_key in arg_structure for key in arg_structure[old_key]['names']}
+    res = [arg_structure[i]["default"] for i in range(0, len(arg_structure))]
+    keywords = {key: old_key for old_key in arg_structure for key in arg_structure[old_key]['names']}
     options = [word.split('=')[0] for word in args]
     i = 1
     while i < len(options):
@@ -39,4 +39,3 @@ def main(args, arg_structure):
     if len(res) == 1:
         return res[0]
     return res
-        

@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 from re import match
 
-class RCONF():
+
+class RCONF:
     def __init__(self, filepath):
         self.filepath = filepath
         attrib = self.readconf()
         self.keys = attrib.keys()
         for a in attrib:
             setattr(self, a, attrib[a])
-
 
     def readconf(self):
         res = {}
@@ -21,10 +21,8 @@ class RCONF():
                     res[str(g.group(1))] = str(g.group(2))
         return res
 
-
     def __str__(self):
         return 'Configuration object from "%s"' % self.filepath
-
 
     def __repr__(self):
         return self.__str__()

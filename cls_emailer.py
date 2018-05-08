@@ -1,10 +1,10 @@
 # -*- coding:utf-8 -*-
-from datetime import datetime
-from smtplib import SMTP_SSL, SMTPException
+from smtplib import SMTP_SSL   # SMTPException
 
 
-class Sender():
-    def __init__(self, recepient=None, subject=None, message=None, login=None, word=None, server='smtp.yandex.ru', port=465):
+class Sender:
+    def __init__(self, recepient=None, subject=None, message=None,
+                 login=None, word=None, server='smtp.yandex.ru', port=465):
         self.recepient = recepient
         self.subject = subject
         self.message = message
@@ -14,7 +14,6 @@ class Sender():
         self.port = port
         self.msg = None
 
-
     def check_server_data(self):
         def none_check(data):
             if data[1] is None:
@@ -22,12 +21,15 @@ class Sender():
                 return True
             return False
         error, warning = False, False
-        if none_check(['server', self.server]): error = True
-        if none_check(['port', self.port]): error = True
-        if none_check(['login', self.login]): error = True
-        if none_check(['password', self.word]): error = True
+        if none_check(['server', self.server]):
+            error = True
+        if none_check(['port', self.port]):
+            error = True
+        if none_check(['login', self.login]):
+            error = True
+        if none_check(['password', self.word]):
+            error = True
         return error, warning
-
 
     def send(self, rcpt):
         status = 1
@@ -40,11 +42,10 @@ class Sender():
             s = SMTP_SSL(self.server, self.port)
             s.login(self.login, self.word)
             s.sendmail(sender, recepient, self.msg)
-            s.quit
+            s.quit()
             status = 0
         finally:
             return status
-
 
     def notify(self, recepient=None, subject=None, message=None):
         error, warning = self.check_server_data()
@@ -61,15 +62,15 @@ class Sender():
             error = True
         if not subject and not self.subject:
             print 'Warning: no subject'
-            warning = True
+            # warning = True
             self.subject = ''
         if not message and not self.message:
             print 'Warning: no message'
-            warning = True
+            # warning = True
             self.message = ''
         if error:
             return 1
-        # warning is supressed
+        # warning is suppressed
         # if warning:  # at this moment warning behaves same as error
         #    return 1
         for r in self.recepient:

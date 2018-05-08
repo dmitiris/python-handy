@@ -3,9 +3,8 @@
 from os import listdir
 
 
-def main(mypath='.', extension=None):
+def main(my_path='.', extension=None):
     if extension:
-        return [f for f in listdir(mypath) if f.split('.')[-1] in extension]
+        return [f for f in listdir(my_path) if f.split('.')[-1] in extension]
     else:
-        return [f for f in listdir(mypath)]
-
+        return [f for f in listdir(my_path)]
