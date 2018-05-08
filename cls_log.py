@@ -4,9 +4,9 @@ from datetime import datetime
 
 # from cls_log import LogObj as LOG
 class LOG:
-    def __init__(self):
-        self.log_name = 'default.log'
-        self.to_log = False
+    def __init__(self, log_name='default.log', to_log=False):
+        self.log_name = log_name
+        self.to_log = to_log
 
     def if_log_exists(self):
         try:
