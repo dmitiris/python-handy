@@ -6,9 +6,10 @@ class RCONF:
     def __init__(self, filepath):
         self.filepath = filepath
         self.attrib = self.readconf()
-        self.keys = attrib.keys()
+        self.keys = self.attrib.keys()
         for a in self.attrib:
-            setattr(self, a, self.attrib[a])
+            setattr(self, lower(a), self.attrib[lower(a)])
+            setattr(self, upper(a), self.attrib[upper(a)])
 
     def readconf(self):
         res = {}
@@ -18,7 +19,8 @@ class RCONF:
             for line in lines:
                 g = match('(\w+)\s*=\s*([\w\.\,\-]+)', line)
                 if g:
-                    res[str(g.group(1))] = str(g.group(2))
+                    res[lower(str(g.group(1)))] = str(g.group(2))
+                    res[upper(str(g.group(1)))] = str(g.group(2))
         return res
 
     def __str__(self):
