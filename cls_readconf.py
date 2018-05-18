@@ -5,10 +5,10 @@ from re import match
 class RCONF:
     def __init__(self, filepath):
         self.filepath = filepath
-        attrib = self.readconf()
+        self.attrib = self.readconf()
         self.keys = attrib.keys()
-        for a in attrib:
-            setattr(self, a, attrib[a])
+        for a in self.attrib:
+            setattr(self, a, self.attrib[a])
 
     def readconf(self):
         res = {}
@@ -16,7 +16,7 @@ class RCONF:
             data = f.read()
             lines = data.split('\n')  # should make support for \r
             for line in lines:
-                g = match('(\w+)\s*=\s*(\w+)', line)
+                g = match('(\w+)\s*=\s*([\w\.\,\-]+)', line)
                 if g:
                     res[str(g.group(1))] = str(g.group(2))
         return res
