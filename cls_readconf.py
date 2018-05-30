@@ -8,8 +8,8 @@ class RCONF:
         self.attrib = self.readconf()
         self.keys = self.attrib.keys()
         for a in self.attrib:
-            setattr(self, lower(a), self.attrib[lower(a)])
-            setattr(self, upper(a), self.attrib[upper(a)])
+            setattr(self, a.lower(), self.attrib[a.lower()])
+            setattr(self, a.upper(), self.attrib[a.upper()])
 
     def readconf(self):
         res = {}
@@ -19,8 +19,8 @@ class RCONF:
             for line in lines:
                 g = match('(\w+)\s*=\s*([\w\.\,\-]+)', line)
                 if g:
-                    res[lower(str(g.group(1)))] = str(g.group(2))
-                    res[upper(str(g.group(1)))] = str(g.group(2))
+                    res[(str(g.group(1))).lower()] = str(g.group(2))
+                    res[(str(g.group(1))).upper()] = str(g.group(2))
         return res
 
     def __str__(self):
