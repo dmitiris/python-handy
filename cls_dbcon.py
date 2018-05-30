@@ -4,7 +4,13 @@
 from datetime import datetime
 
 # local modules
-from psycopg2 import connect
+try:
+    from psycopg2 import connect
+except ImportError:
+    print 'ImportError: No module named psycopg2'
+
+    def connect(string):
+        raise ImportError('ImportError: No module named psycopg2')
 
 
 class DB:
