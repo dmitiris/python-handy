@@ -17,7 +17,7 @@ class RCONF:
             data = f.read()
             lines = data.split('\n')  # should make support for \r
             for line in lines:
-                g = match('(\w+)\s*=\s*([\w@.,\-]+)', line)
+                g = match('([\w@,./]+)\s*=\s*([\w@.,\-]+)', line)
                 if g:
                     res[(str(g.group(1))).lower()] = str(g.group(2))
                     res[(str(g.group(1))).upper()] = str(g.group(2))
@@ -28,3 +28,7 @@ class RCONF:
 
     def __repr__(self):
         return self.__str__()
+
+    def __getitem__(self, item):
+        print item, type(item)
+        return getattr(self, item)
