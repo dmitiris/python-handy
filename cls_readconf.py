@@ -30,5 +30,4 @@ class RCONF:
         return self.__str__()
 
     def __getitem__(self, item):
-        print item, type(item)
         return getattr(self, item)
