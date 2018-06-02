@@ -2,7 +2,7 @@
 from re import match
 
 
-class RCONF:
+class ReadConfig:
     def __init__(self, filepath):
         self.filepath = filepath
         self.attrib = self.readconf()

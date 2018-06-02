@@ -3,7 +3,7 @@ from datetime import datetime
 
 
 # from cls_log import LogObj as LOG
-class LOG:
+class LogClass:
     def __init__(self, log_name='default.log', to_log=False):
         self.log_name = log_name
         self.to_log = to_log
@@ -28,4 +28,4 @@ class LOG:
             print '\t'.join(data)
 
 
-LogObj = LOG()
+LogObj = LogClass()
