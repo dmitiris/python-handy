@@ -17,10 +17,15 @@ class ReadConfig:
             data = f.read()
             lines = data.split('\n')  # should make support for \r
             for line in lines:
-                g = match('([\w@,./]+)\s*=\s*([\w@.,\-]+)', line)
-                if g:
-                    res[(str(g.group(1))).lower()] = str(g.group(2))
-                    res[(str(g.group(1))).upper()] = str(g.group(2))
+                if len(line) > 0:
+                    if line[0] == '#':
+                        pass
+                    else:
+                        g = match('([\w@,./]+)\s*=\s*([\w@.,\-]+)', line)
+                        if g:
+                            res[(str(g.group(1))).lower()] = str(g.group(2))
+                            res[(str(g.group(1))).upper()] = str(g.group(2))
+                            res[(str(g.group(1)))] = str(g.group(2))
         return res
 
     def __str__(self):
