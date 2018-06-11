@@ -21,7 +21,7 @@ class ReadConfig:
                     if line[0] == '#':
                         pass
                     else:
-                        g = match('([\w@,./]+)\s*=\s*([\w@.,\-/]+)', line)
+                        g = match('([\w@,./]+)\s*=\s*([\w@.,\-/:]+)', line)
                         if g:
                             res[(str(g.group(1))).lower()] = str(g.group(2))
                             res[(str(g.group(1))).upper()] = str(g.group(2))
