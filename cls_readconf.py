@@ -10,6 +10,7 @@ class ReadConfig:
         for a in self.attrib:
             setattr(self, a.lower(), self.attrib[a.lower()])
             setattr(self, a.upper(), self.attrib[a.upper()])
+            setattr(self, a, self.attrib[a])
 
     def readconf(self):
         res = {}
@@ -23,6 +24,7 @@ class ReadConfig:
                     else:
                         g = match('([\w@,./]+)\s*=\s*([\w@.,\-/:]+)', line)
                         if g:
+                            print str(g.group(1))
                             res[(str(g.group(1))).lower()] = str(g.group(2))
                             res[(str(g.group(1))).upper()] = str(g.group(2))
                             res[(str(g.group(1)))] = str(g.group(2))
