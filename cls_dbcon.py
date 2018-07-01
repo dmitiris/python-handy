@@ -120,7 +120,7 @@ class DB:
 
 
 class DBConnection:
-    def __init__(self, db_name='postgres', db_user='postgres', db_word=False, db_host='localhost', db_port=5432, config=False):
+    def __init__(self, db_name=None, db_user=None, db_word=None, db_host=None, db_port=None, config=False):
         if config or isinstance(db_name, ReadConfig):
             if not config:
                 config = db_name
