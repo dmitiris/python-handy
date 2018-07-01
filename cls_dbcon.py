@@ -5,6 +5,13 @@ from datetime import datetime
 
 # local modules
 try:
+    from cls_readconf import ReadConfig
+except ImportError:
+    class Dummy:
+        def __init__(self):
+            pass
+    ReadConfig = Dummy()
+try:
     from psycopg2 import connect
 except ImportError:
     print 'ImportError: No module named psycopg2'
@@ -19,6 +26,7 @@ class DB:
         self.CUR = False
         self.CONSTR = ''
 
+    @staticmethod
     def functions(self):
         print 'dbcon'
         print 'check_connection'
@@ -112,9 +120,23 @@ class DB:
 
 
 class DBConnection:
-    def __init__(self, db_name='postgres', db_user='postgres', db_word=False, db_host='localhost', db_port=5432):
-        keywords = ['dbname', 'user', 'password', 'host', 'port']
+    def __init__(self, db_name='postgres', db_user='postgres', db_word=False, db_host='localhost', db_port=5432, config=False):
+        if config or isinstance(db_name, ReadConfig):
+            if not config:
+                config = db_name
+            for key in config.attrib:
+                if key in ['dbname', 'db_name']:
+                    db_name = config.attrib[key]
+                if key in ['dbuser', 'db_user']:
+                    db_user = config.attrib[key]
+                if key in ['dbword', 'db_word']:
+                    db_word = config.attrib[key]
+                if key in ['dbhost', 'db_host']:
+                    db_host = config.attrib[key]
+                if key in ['dbport', 'db_port']:
+                    db_port = config.attrib[key]
         data = [db_name, db_user, db_word, db_host, db_port]
+        keywords = ['dbname', 'user', 'password', 'host', 'port']
         connection_string_parts = ['%s=%s' % (keywords[i], data[i]) for i in range(0, len(data)) if data[i]]
         self.connection_string = ' '.join(connection_string_parts)
 
