@@ -1,32 +1,37 @@
 # -*- coding: utf-8 -*-
 from re import match
+from json import loads as from_json
 
 
 class ReadConfig:
-    def __init__(self, filepath):
+    def __init__(self, filepath, json=False):
         self.filepath = filepath
-        self.attrib = self.readconf()
+        self.json = json
+        self.attrib = self.readconfig()
         self.keys = self.attrib.keys()
         for a in self.attrib:
             setattr(self, a.lower(), self.attrib[a.lower()])
             setattr(self, a.upper(), self.attrib[a.upper()])
             setattr(self, a, self.attrib[a])
 
-    def readconf(self):
+    def readconfig(self):
         res = {}
         with open(self.filepath) as f:
             data = f.read()
-            lines = data.split('\n')  # should make support for \r
-            for line in lines:
-                if len(line) > 0:
-                    if line[0] == '#':
-                        pass
-                    else:
-                        g = match('([\w@,./]+)\s*=\s*([\w@.,\-/:]+)', line)
-                        if g:
-                            res[(str(g.group(1))).lower()] = str(g.group(2))
-                            res[(str(g.group(1))).upper()] = str(g.group(2))
-                            res[(str(g.group(1)))] = str(g.group(2))
+            if self.json:
+                res = from_json(data)
+            else:
+                lines = data.split('\n')  # should make support for \r
+                for line in lines:
+                    if len(line) > 0:
+                        if line[0] == '#':
+                            pass
+                        else:
+                            g = match('([\w@,./]+)\s*=\s*([\w@.,\-/:]+)', line)
+                            if g:
+                                res[(str(g.group(1))).lower()] = str(g.group(2))
+                                res[(str(g.group(1))).upper()] = str(g.group(2))
+                                res[(str(g.group(1)))] = str(g.group(2))
         return res
 
     def __str__(self):
