@@ -35,6 +35,8 @@ class ReadConfig:
                                 res[(str(g.group(1))).lower()] = str(g.group(2))
                                 res[(str(g.group(1))).upper()] = str(g.group(2))
                                 res[(str(g.group(1)))] = str(g.group(2))
+        if not res:
+            raise IOError('Could not read config file, no readable data in it (possibly wrong format)')
         return res
 
     def __str__(self):
