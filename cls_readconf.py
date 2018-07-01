@@ -20,6 +20,9 @@ class ReadConfig:
             data = f.read()
             if self.json:
                 res = from_json(data)
+                for key in res.keys():
+                    res[key.lower()] = res[key]
+                    res[key.upper()] = res[key]
             else:
                 lines = data.split('\n')  # should make support for \r
                 for line in lines:
