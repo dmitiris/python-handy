@@ -121,7 +121,7 @@ class DB:
 
 class DBConnection:
     def __init__(self, db_name=None, db_user=None, db_word=None, db_host=None, db_port=None, config=False):
-        if config or isinstance(db_name, ReadConfig):
+        if (config and isinstance(config, ReadConfig)) or isinstance(db_name, ReadConfig):
             if not config:
                 config = db_name
             for key in config.attrib:
